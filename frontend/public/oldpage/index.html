@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>NIRD - Numérique Inclusif Responsable Durable</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- jQuery 1.12.4 -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- FontAwesome 4.7 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        /* RESET CSS 2.1 */
+        * { margin: 0; padding: 0; }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        img { border: 0; max-width: 100%; height: auto; }
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* UTILS */
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .clearfix { zoom: 1; } /* Hack IE */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #219150;
+            cursor: pointer;
+        }
+        .btn:hover { background-color: #2ecc71; }
+
+        /* HEADER */
+        #header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            height: 70px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        #logo {
+            float: left;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 70px;
+        }
+        #logo span { color: #27ae60; }
+
+        /* NAVIGATION */
+        #nav { float: right; }
+        #nav li { float: left; }
+        #nav li a {
+            display: block;
+            padding: 0 20px;
+            line-height: 70px;
+            color: #555;
+            font-weight: 500;
+        }
+        #nav li a:hover { color: #27ae60; background-color: #fafafa; }
+
+        /* BOUTONS MOBILES (Cachés par défaut sur Desktop) */
+        #burger-btn, #mobile-home-btn {
+            display: none; /* Caché par défaut */
+            float: right;
+            height: 70px;      /* Force la hauteur du conteneur */
+            line-height: 70px; /* Centre verticalement par rapport au header */
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 15px;
+            color: #2c3e50;
+            position: relative; /* Permet un ajustement fin */
+            top: 25px; /* Correction optique pour aligner l'icône avec la ligne de base du texte */
+        }
+        #mobile-home-btn:hover, #burger-btn:hover {
+            color: #27ae60;
+        }
+
+        /* HERO SECTION */
+        #hero {
+            /*margin-top: 70px;*/
+            background-color: #2c3e50;
+            color: #ffffff;
+            /*padding: 80px 0;*/
+            border-bottom: 5px solid #27ae60;
+        }
+        #hero h1 { font-size: 42px; margin-bottom: 20px; font-weight: 300; }
+        #hero p { font-size: 18px; margin-bottom: 30px; color: #bdc3c7; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* TAB SECTION */
+        #tabs-section { padding: 60px 0; background-color: #fff; }
+        .section-title { font-size: 32px; margin-bottom: 40px; color: #2c3e50; font-weight: 700; }
+        
+        .tab-nav {
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .tab-nav li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .tab-nav a {
+            display: block;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #2c3e50;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: 3px solid #bdc3c7;
+            border-bottom: none;
+            position: relative;
+            top: 2px;
+        }
+        .tab-nav a.active {
+            background: #fff;
+            color: #2c3e50;
+            font-weight: bold;
+            border-top: 3px solid #27ae60;
+            top: 3px;
+        }
+
+        .tab-content { display: none; padding: 20px; background: #fff; border: 1px solid #eee; }
+        .tab-content.active { display: block; }
+        
+        .tab-cols .col-half {
+            width: 48%;
+            float: left;
+        }
+        .tab-cols .col-right { float: right; }
+        
+        .tab-icon {
+            font-size: 60px;
+            color: #27ae60;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* MEDIA SECTION */
+        #media-section { padding: 60px 0; background-color: #ecf0f1; }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            padding-top: 25px;
+            height: 0;
+            background: #000;
+            border: 10px solid #fff;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* GRID SYSTEM */
+        .row { margin: 0; }
+        .col-4 {
+            width: 33.3%;
+            float: left;
+        }
+        
+        .feature-box {
+            background: #fff;
+            padding: 30px;
+            margin: 0 10px 20px 10px; 
+            border-bottom: 3px solid #bdc3c7;
+        }
+        .feature-box:hover { border-bottom-color: #27ae60; }
+        .feature-box h3 { margin-top: 15px; margin-bottom: 10px; }
+
+        /* FOOTER */
+        #footer {
+            background-color: #222;
+            color: #7f8c8d;
+            padding: 40px 0;
+            font-size: 14px;
+        }
+        #footer h4 { color: #fff; margin-bottom: 15px; text-transform: uppercase; }
+        #footer ul li { margin-bottom: 8px; }
+
+        /* =========================================
+           RESPONSIVE LOGIC (SIMULATION CSS VIA JS)
+           ========================================= */
+        
+        /* Tablette */
+        body.tablet-view .col-4 { width: 50%; }
+        
+        /* Mobile */
+        body.mobile-view .container { width: 95%; }
+        
+        body.mobile-view #nav {
+            display: none;
+            float: none;
+            width: 100%;
+            background: #fff;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            border-bottom: 4px solid #ccc; 
+        }
+        body.mobile-view #nav li {
+            float: none;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        /* Afficher les boutons spécifiques au mobile */
+        body.mobile-view #burger-btn { display: block; }
+        body.mobile-view #mobile-home-btn { display: block; }
+        
+        body.mobile-view #hero h1 { font-size: 28px; }
+        
+        body.mobile-view .tab-cols .col-half {
+            width: 100%;
+            float: none;
+            margin-bottom: 20px;
+        }
+        
+        body.mobile-view .col-4 {
+            width: 100%;
+            float: none;
+            margin-bottom: 20px;
+        }
+
+        body.mobile-view .tab-nav a {
+            padding: 10px 10px;
+            font-size: 14px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+            function checkLayout() {
+                var width = $(window).width();
+                var $body = $('body');
+
+                $body.removeClass('mobile-view tablet-view desktop-view');
+
+                if (width < 768) {
+                    $body.addClass('mobile-view');
+                    if (!$('#nav').hasClass('open')) { $('#nav').hide(); }
+                } else if (width < 992) {
+                    $body.addClass('tablet-view');
+                    $('#nav').show();
+                    $('#burger-btn').hide();
+                    $('#mobile-home-btn').hide(); // Cacher le bouton Home mobile
+                } else {
+                    $body.addClass('desktop-view');
+                    $('#nav').show();
+                    $('#burger-btn').hide();
+                    $('#mobile-home-btn').hide(); // Cacher le bouton Home mobile
+                }
+            }
+
+            checkLayout();
+            $(window).resize(checkLayout);
+
+            $('#burger-btn').click(function(e) {
+                e.preventDefault();
+                $('#nav').stop(true, true).slideToggle();
+                $('#nav').toggleClass('open');
+            });
+
+            $('.tab-link').click(function(e) {
+                e.preventDefault();
+                $('.tab-link').removeClass('active');
+                $(this).addClass('active');
+                var targetId = $(this).attr('href');
+                $('.tab-content').hide();
+                $(targetId).show();
+                $(targetId).css('opacity', 0).animate({ opacity: 1 }, 300);
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div id="header">
+        <div class="container clearfix">
+            <div id="logo">NIRD<span>.</span></div>
+            
+            <!-- Bouton Burger (flottant à droite) -->
+            <div id="burger-btn"><i class="fa fa-bars"></i></div>
+            
+            <!-- NOUVEAU : Bouton Accueil visible uniquement sur mobile (flottant à droite, donc à gauche du burger) -->
+            <a href="#hero" id="mobile-home-btn"><i class="fa fa-home"></i></a>
+
+            <ul id="nav" class="clearfix">
+                <li><a href="#hero">Accueil</a></li>
+                <li><a href="#tabs-section">Les Piliers</a></li>
+                <li><a href="#media-section">Média</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="hero" class="text-center">
+        <div class="container">
+            <h1>Numérique Inclusif, Responsable & Durable</h1>
+            <p>Construisons ensemble un avenir technologique qui n'oublie personne et préserve notre planète. Une approche éthique pour les défis de demain.</p>
+            <a href="#tabs-section" class="btn">Découvrir le concept</a>
+        </div>
+    </div>
+
+    <div id="tabs-section">
+        <div class="container">
+            <h2 class="section-title text-center">Les 3 Piliers du NIRD</h2>
+            <ul class="tab-nav clearfix">
+                <li><a href="#tab-inclusif" class="tab-link active">Inclusif</a></li>
+                <li><a href="#tab-responsable" class="tab-link">Responsable</a></li>
+                <li><a href="#tab-durable" class="tab-link">Durable</a></li>
+            </ul>
+
+            <div id="tab-inclusif" class="tab-content active">
+                <div class="tab-cols clearfix">
+                    <div class="col-half text-center">
+                        <i class="fa fa-users tab-icon"></i>
+                        <h3>Accessibilité pour tous</h3>
+                    </div>
+                    <div class="col-half col-right">
+                        <p>Le numérique inclusif vise à rendre les technologies accessibles à tous, indépendamment du handicap, de l'âge, ou de la situation géographique. Il s'agit de lutter contre l'illectronisme et de garantir que les services publics et privés soient utilisables par chacun.</p>
+                        <br>
+                        <p><strong>Enjeux :</strong> Accessibilité web (RGAA), formation des seniors, couverture réseau en zone blanche.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-responsable" class="tab-content">
+                <div class="tab-cols clearfix">
+                    <div class="col-half text-center">
+                        <i class="fa fa-shield tab-icon"></i>
+                        <h3>Éthique et Données</h3>
+                    </div>
+                    <div class="col-half col-right">
+                        <p>Le numérique responsable s'attache à l'impact social et éthique de la technologie. Il prône une gestion transparente des données personnelles (RGPD), la lutte contre le cyber-harcèlement et la promotion d'algorithmes non biaisés.</p>
+                        <br>
+                        <p><strong>Enjeux :</strong> Souveraineté numérique, protection de la vie privée, modération de contenu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-durable" class="tab-content">
+                <div class="tab-cols clearfix">
+                    <div class="col-half text-center">
+                        <i class="fa fa-leaf tab-icon"></i>
+                        <h3>Écologie Numérique</h3>
+                    </div>
+                    <div class="col-half col-right">
+                        <p>Le numérique durable vise à réduire l'empreinte environnementale du secteur IT. De la fabrication des terminaux à la consommation énergétique des data centers, chaque étape doit être optimisée pour réduire les émissions de carbone.</p>
+                        <br>
+                        <p><strong>Enjeux :</strong> Réparabilité des appareils, éco-conception web, Green IT.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRID SECTION -->
+    <div style="background-color: #ffffff; padding: 60px 0; border-top: 1px solid #eee;">
+        <div class="container">
+            <div class="clearfix">
+                <div class="col-4">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-wheelchair fa-3x" style="color: #27ae60;"></i>
+                        <h3>Accessibilité</h3>
+                        <p>Concevoir des interfaces simples et navigables pour les personnes en situation de handicap.</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-server fa-3x" style="color: #27ae60;"></i>
+                        <h3>Sobriété</h3>
+                        <p>Minimiser le poids des données pour réduire la consommation énergétique des serveurs.</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-handshake-o fa-3x" style="color: #27ae60;"></i>
+                        <h3>Solidarité</h3>
+                        <p>Favoriser l'entraide et le lien social à travers les outils numériques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEDIA SECTION -->
+    <div id="media-section">
+        <div class="container text-center">
+            <h2 class="section-title">Comprendre l'Impact</h2>
+            <p style="margin-bottom: 30px;">Une vidéo explicative sur les enjeux du numérique durable.</p>
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/aTfIDgMWbzk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container clearfix">
+            <div class="col-4">
+                <h4>À propos</h4>
+                <p>Projet de démonstration technique utilisant uniquement HTML4, CSS2.1 et jQuery 1.x.</p>
+            </div>
+            <div class="col-4">
+                <h4>Liens Utiles</h4>
+                <ul>
+                    <li><a href="#">Institut du Numérique Responsable</a></li>
+                    <li><a href="#">The Shift Project</a></li>
+                    <li><a href="#">Accessibilité Web</a></li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <h4>Contact</h4>
+                <p>contact@nird-project.org</p>
+                <p>+33 1 23 45 67 89</p>
+            </div>
+        </div>
+        <div class="container text-center" style="margin-top: 40px; border-top: 1px solid #333; padding-top: 20px;">
+            &copy; 2023 NIRD Project. Design Rétro-Compatible.
+        </div>
+    </div>
+
+</body>
+</html>
