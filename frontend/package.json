@@ -1,5 +1,6 @@
 {
-  "name": "frontend",
+  "name": "nuit_de_linfo_2025",
+  "homepage": "https://void575.github.io/nuit_de_linfo_2025/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -55,7 +56,9 @@
     "build": "vite build",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.10.1"
+    "react-router-dom": "^7.10.1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
