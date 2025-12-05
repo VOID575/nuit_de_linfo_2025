@@ -1,0 +1,155 @@
+.level2-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #0a2e15; /* Dark green background */
+    color: white;
+    padding: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.level2-content {
+    max-width: 800px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.level2-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #4ade80; /* Light green text */
+}
+
+.level2-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.level2-button {
+    background-color: #22c55e;
+    color: white;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.level2-button:hover {
+    background-color: #16a34a;
+}
+
+/* Game specific styles */
+.level2-game-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.progress-bar-container {
+    margin-bottom: 2rem;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    background-color: #374151;
+    border-radius: 9999px;
+    height: 1.5rem;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: #22c55e;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.875rem;
+    transition: width 0.3s ease;
+}
+
+.developer-controls {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.dev-button {
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.dev-button:disabled {
+    background-color: #4b5563;
+    cursor: not-allowed;
+}
+
+.dev-button:hover:not(:disabled) {
+    background-color: #1d4ed8;
+}
+
+.word-game-area {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.target-word {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fde047;
+    margin-bottom: 1.5rem;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.word-input-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.word-input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    color: black;
+}
+
+.validate-button {
+    background-color: #22c55e;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.validate-button:hover {
+    background-color: #16a34a;
+}
+
+.feedback-message {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
