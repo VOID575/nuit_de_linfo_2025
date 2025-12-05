@@ -1,0 +1,416 @@
+/* RESET CSS 2.1 */
+* { margin: 0; padding: 0; }
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0f0f23;
+    color: #cccccc;
+    font-size: 12px;
+    line-height: 1.8;
+}
+img { border: 0; }
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+
+/* CLEARFIX */
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix { zoom: 1; }
+
+/* LAYOUT */
+.container {
+    width: 95%;
+    margin: 0 auto;
+    position: relative;
+}
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+/* BOUTON STYLE CYBERPUNK */
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: #ff00ff;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 4px solid #ffffff;
+    cursor: pointer;
+    letter-spacing: 2px;
+    font-size: 10px;
+}
+.btn:hover { 
+    background-color: #ff0080;
+}
+
+/* HEADER CYBERPUNK */
+#header {
+    background-color: #1a1a2e;
+    border-bottom: 6px solid #00ff00;
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+#logo {
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 100px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+#logo span { color: #00ff00; }
+
+/* NAVIGATION CYBERPUNK */
+#nav { float: right; }
+#nav li { float: left; }
+#nav li a {
+    display: block;
+    padding: 0 25px;
+    line-height: 100px;
+    color: #cccccc;
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#nav li a:hover {
+    color: #00ff00;
+    background-color: #16213e;
+}
+
+/* BOUTONS MOBILES */
+#burger-btn, #mobile-home-btn {
+    display: none;
+    float: right;
+    height: 100px;
+    line-height: 100px;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 15px;
+    color: #00ff00;
+}
+#burger-btn:hover, #mobile-home-btn:hover {
+    color: #ffffff;
+}
+
+/* HERO SECTION CYBERPUNK */
+#hero {
+    margin-top: 100px;
+    background-color: #16213e;
+    color: #ffffff;
+    padding: 120px 0;
+    border-bottom: 8px solid #00ff00;
+    border-top: 4px solid #ff00ff;
+    border-left: 4px solid #00ffff;
+    border-right: 4px solid #ffff00;
+}
+
+#hero h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #ffffff;
+}
+#hero p {
+    font-size: 14px;
+    margin-bottom: 40px;
+    color: #cccccc;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 2;
+}
+
+/* TABS SECTION CYBERPUNK */
+#tabs-section {
+    padding: 80px 0;
+    background-color: #0f0f23;
+    min-height: 600px;
+}
+.section-title {
+    font-size: 24px;
+    margin-bottom: 60px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.tab-nav {
+    border-bottom: 6px solid #ff00ff;
+    margin-bottom: 40px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.tab-nav li {
+    display: inline-block;
+    margin: 0 15px;
+}
+.tab-nav a {
+    display: block;
+    padding: 20px 40px;
+    font-size: 12px;
+    color: #cccccc;
+    background-color: #1a1a2e;
+    border: 4px solid #ff00ff;
+    border-bottom: none;
+    position: relative;
+    top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+.tab-nav a.active {
+    background-color: #ff00ff;
+    color: #ffffff;
+    font-weight: bold;
+    top: 10px;
+}
+
+.tab-content {
+    display: none;
+    padding: 60px;
+    background-color: #1a1a2e;
+    border: 6px solid #00ffff;
+    min-height: 300px;
+}
+.tab-content.active { display: block; }
+
+.tab-cols .col-half {
+    width: 48%;
+    float: left;
+}
+.tab-cols .col-right { float: right; }
+
+.tab-icon {
+    font-size: 80px;
+    color: #ffff00;
+    margin-bottom: 30px;
+    display: block;
+    font-weight: bold;
+}
+
+.tab-content h3 {
+    color: #ffffff;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.tab-content p {
+    color: #cccccc;
+    font-size: 12px;
+    line-height: 2;
+    margin-bottom: 15px;
+}
+
+.tab-content strong {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+/* MEDIA SECTION CYBERPUNK */
+#media-section {
+    padding: 80px 0;
+    background-color: #16213e;
+    border-top: 4px solid #00ffff;
+    border-bottom: 4px solid #ff00ff;
+}
+.video-wrapper {
+    background-color: #000000;
+    border: 8px solid #00ffff;
+    padding: 20px;
+    margin: 0 auto;
+    width: 80%;
+}
+.video-wrapper iframe {
+    width: 100%;
+    height: 400px;
+    border: 4px solid #ffff00;
+}
+
+/* GRID SYSTEM CYBERPUNK */
+.row { margin: 0; }
+.col-4 {
+    width: 33.3%;
+    float: left;
+    padding: 0 15px;
+}
+
+/* Section avec fond blanc → style cyberpunk */
+div[style*="background-color: #ffffff"] {
+    background-color: #1a1a2e !important;
+    border-top: 6px solid #00ffff !important;
+    border-bottom: 6px solid #ff00ff !important;
+    padding: 80px 0 !important;
+}
+
+.feature-box {
+    background-color: #16213e;
+    padding: 50px;
+    margin: 0 0 40px 0;
+    border: 6px solid #ffff00;
+    text-align: center;
+    min-height: 320px;
+}
+.feature-box:hover {
+    border-color: #ffffff;
+    background-color: #1a1a2e;
+}
+.feature-box h3 {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+.feature-box p {
+    color: #cccccc;
+    font-size: 11px;
+    line-height: 2;
+}
+
+/* Style pour les icônes FontAwesome */
+.feature-box i {
+    color: #ffff00 !important;
+    font-size: 72px !important;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* FOOTER CYBERPUNK */
+#footer {
+    background-color: #0a0a0f;
+    color: #cccccc;
+    padding: 80px 0;
+    font-size: 11px;
+    border-top: 8px solid #ff00ff;
+    border-bottom: 4px solid #00ff00;
+}
+#footer h4 {
+    color: #ffffff;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+#footer ul li { 
+    margin-bottom: 15px; 
+    line-height: 1.8;
+}
+#footer a:hover { 
+    color: #00ff00; 
+}
+#footer p {
+    line-height: 1.8;
+    color: #cccccc;
+}
+
+/* Style pour le copyright */
+#footer div[style*="margin-top"] {
+    border-top: 2px solid #ff00ff !important;
+    padding-top: 30px !important;
+    margin-top: 50px !important;
+    color: #cccccc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* RESPONSIVE LOGIC CSS2.1 */
+
+/* Tablette */
+body.tablet-view .col-4 { width: 50%; }
+
+/* Mobile */
+body.mobile-view .container { width: 98%; }
+
+body.mobile-view #nav {
+    display: none;
+    float: none;
+    width: 100%;
+    background-color: #1a1a2e;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    border-bottom: 6px solid #00ff00;
+}
+body.mobile-view #nav li {
+    float: none;
+    border-top: 2px solid #ff00ff;
+    text-align: center;
+}
+
+body.mobile-view #burger-btn { display: block; }
+body.mobile-view #mobile-home-btn { display: block; }
+
+body.mobile-view #hero h1 { 
+    font-size: 24px; 
+    letter-spacing: 3px; 
+}
+body.mobile-view #hero p { 
+    width: 95%; 
+    font-size: 12px;
+}
+
+body.mobile-view .tab-cols .col-half {
+    width: 100%;
+    float: none;
+    margin-bottom: 30px;
+}
+
+body.mobile-view .col-4 {
+    width: 100%;
+    float: none;
+    margin-bottom: 30px;
+    padding: 0;
+}
+
+body.mobile-view .tab-nav a {
+    padding: 15px 20px;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+body.mobile-view .feature-box {
+    margin: 0 0 25px 0;
+    min-height: 250px;
+    padding: 30px;
+}
+
+body.mobile-view .video-wrapper {
+    width: 95%;
+    padding: 15px;
+}
+
+body.mobile-view .video-wrapper iframe {
+    height: 250px;
+}
+
+body.mobile-view .tab-content {
+    padding: 30px 20px;
+}
+
+body.mobile-view #tabs-section {
+    padding: 50px 0;
+}
+
+body.mobile-view #media-section {
+    padding: 50px 0;
+}
