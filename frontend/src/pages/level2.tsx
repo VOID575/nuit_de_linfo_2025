@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import './Level2.css';
 
 'use client';
 
@@ -27,7 +29,7 @@ export default function Level2() {
                     if (newProgress >= 100) setGameFinished(true);
                     return newProgress;
                 });
-            }, 5000);
+            }, 1000);
             return () => clearInterval(interval);
         }
     }, [developers, gameFinished]);
@@ -39,8 +41,8 @@ export default function Level2() {
     };
 
     const buyDeveloper = () => {
-        if (progress >= 1 && !gameFinished) {
-            setProgress(prev => Math.max(prev - 1, 0));
+        if (progress >= 10+5*developers) {
+            setProgress(prev => Math.max(prev - (10+5*developers), 0));
             setDevelopers(prev => prev + 1);
         }
     };
@@ -69,17 +71,20 @@ export default function Level2() {
 
     if (!showGame) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 flex flex-col items-center justify-center p-4">
-                <div className="max-w-2xl text-white text-center">
-                    <h1 className="text-4xl font-bold mb-8">Niveau 2: Open Source</h1>
-                    <div className="bg-white/10 backdrop-blur p-8 rounded-lg mb-8">
-                        <p className="text-lg leading-relaxed">
-                            Vous êtes un développeur qui a pour but de développer en open source...
+            <div className="level2-container">
+                <div className="level2-content">
+                    <h1 className="level2-title">Niveau 2: Open Source</h1>
+                    <div className="level2-text-box">
+                        <p className="level2-text">
+                            Vous êtes un developpeur qui a pour but de développer en open source. <br/>
+                            De cette façon si un problème se trouve sur votre logiciel, le problème sera facilement repérable à partir du code et le soucis ne sera pas dépend d’une petite équipe dans une entreprise.<br/>
+                            <br/>
+                            De cette manière, les utilisateurs sauront qu’aucun spyware se trouve sur votre logiciel. 
                         </p>
                     </div>
                     <button
                         onClick={() => setShowGame(true)}
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg text-xl"
+                        className="level2-button"
                     >
                         Commencer le jeu
                     </button>
@@ -90,32 +95,37 @@ export default function Level2() {
 
     if (gameFinished) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 flex flex-col items-center justify-center p-8 text-white">
-                <h1 className="text-4xl font-bold mb-6 text-center">Bravo, vous avez fini le développement de votre logiciel !</h1>
-                <p className="text-lg leading-relaxed mb-4">
-                    Grâce à l’aide communautaire que les utilisateurs vous ont apportés, des milliers d’entreprises auront accès à des logiciels open-sources.
-                </p>
-                <p className="text-lg leading-relaxed mb-4">
-                    Cela leur permettra de rester indépendant technologiquement.
-                </p>
-                <p className="text-lg leading-relaxed">
-                    Par conséquent, ces entreprises n’auront pas à changer de logiciel ce qui n’occasionnera pas des coûts économique et écologique.
-                </p>
+            <div className="level2-container">
+                <div className="level2-content">
+                    <h1 className="level2-title">Bravo, vous avez fini le développement de votre logiciel !</h1>
+                    <p className="level2-text">
+                        Grâce à l’aide communautaire que les utilisateurs vous ont apportés, des milliers d’entreprises auront accès à des logiciels open-sources.
+                    </p>
+                    <p className="level2-text">
+                        Cela leur permettra de rester indépendant technologiquement.
+                    </p>
+                    <p className="level2-text">
+                        Par conséquent, ces entreprises n’auront pas à changer de logiciel ce qui n’occasionnera pas des coûts économique et écologique.
+                    </p>
+                    <NavLink to="/level3intro" className="level2-button" style={{display: 'inline-block', marginTop: '1rem', textDecoration: 'none'}}>
+                        Niveau Suivant
+                    </NavLink>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 p-8">
-            <div className="max-w-2xl mx-auto">
-                <h1 className="text-3xl font-bold text-white mb-6">Niveau 2: Open Source</h1>
+        <div className="level2-container">
+            <div className="level2-game-container">
+                <h1 className="level2-title">Niveau 2: Open Source</h1>
 
                 {/* Progress Bar */}
-                <div className="mb-6">
-                    <p className="text-white text-lg mb-2">Engagez un développeur pour 1%.</p>
-                    <div className="w-full bg-gray-300 rounded-full h-6">
+                <div className="progress-bar-container">
+                    <p className="level2-text" style={{marginBottom: '0.5rem'}}>Engagez un développeur pour {10+5*developers}%.</p>
+                    <div className="progress-bar-bg">
                         <div
-                            className="bg-green-500 h-6 rounded-full transition-all flex items-center justify-center text-white font-bold text-sm"
+                            className="progress-bar-fill"
                             style={{ width: `${Math.min(progress, 100)}%` }}
                         >
                             {Math.floor(progress)}%
@@ -124,49 +134,44 @@ export default function Level2() {
                 </div>
 
                 {/* Buy Developer */}
-                <div className="mb-6 flex items-center gap-2">
+                <div className="developer-controls">
                     <button
                         onClick={buyDeveloper}
                         disabled={progress < 1}
-                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                        className="dev-button"
                     >
                         Développeurs: {developers}
                     </button>
                     <button
                         onClick={buyDeveloper}
                         disabled={progress < 1}
-                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white font-bold py-2 px-4 rounded text-lg"
+                        className="dev-button"
                     >
                         +
                     </button>
                 </div>
 
                 {/* Word Game */}
-                <div className="bg-white/10 backdrop-blur p-6 rounded-lg">
-                    <p className="text-white text-lg mb-4">Écrivez le mot ci-dessous pour gagner 1%</p>
-                    <p className="text-3xl font-bold text-yellow-300 text-center mb-6">{word}</p>
-                    <div className="flex justify-center gap-2 mb-6">
-                        {word.split('').map((_, idx) => (
-                            <div key={idx} className="w-8 h-8 border-b-2 border-white"></div>
-                        ))}
-                    </div>
-                    <div className="flex gap-2">
+                <div className="word-game-area">
+                    <p className="level2-text" style={{marginBottom: '1rem'}}>Écrivez le mot ci-dessous pour gagner 1%</p>
+                    <p className="target-word">{word}</p>
+                    <div className="word-input-group">
                         <input
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handleSubmitWord()}
                             placeholder="Votre réponse"
-                            className="flex-1 px-4 py-2 rounded"
+                            className="word-input"
                         />
                         <button
                             onClick={handleSubmitWord}
-                            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded"
+                            className="validate-button"
                         >
                             Valider
                         </button>
                     </div>
-                    {message && <p className="text-white text-center mt-4 text-lg">{message}</p>}
+                    {message && <p className="feedback-message">{message}</p>}
                 </div>
             </div>
         </div>
