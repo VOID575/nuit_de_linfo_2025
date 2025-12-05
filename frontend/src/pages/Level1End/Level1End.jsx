@@ -16,7 +16,7 @@ const Level1End = () => {
     MAINTENANT, IL EST L’HEURE DE LA REVANCHE.
 
     </p>
-        <NavLink to="/level2Intro" className="level1end-button">Niveau 2</NavLink>
+        <NavLink to="/level2" className="level1end-button">Niveau 2</NavLink>
     </div>
     );
 };
