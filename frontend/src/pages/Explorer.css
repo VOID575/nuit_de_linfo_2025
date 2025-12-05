@@ -1,0 +1,39 @@
+.explorer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 2rem;
+  font-family: 'VT323', monospace;
+  background-color: #E6E8E6; /* Light grey background matching the image */
+}
+
+.explorer-text {
+  font-size: 2.5rem; /* Increased size for pixel font readability */
+  font-weight: normal;
+  line-height: 1.2;
+  max-width: 900px;
+  margin-bottom: 3rem;
+  color: black;
+}
+
+.explorer-button {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.explorer-button:hover {
+  background-color: black;
+  color: white;
+}
