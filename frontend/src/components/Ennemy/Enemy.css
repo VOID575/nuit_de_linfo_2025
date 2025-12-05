@@ -1,0 +1,12 @@
+.enemy {
+  /* use the local sprite file (path relative to this CSS file) */
+  background-image: url('./EnnemySprite.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none; /* remove border so sprite edges are clean */
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+}
+.enemy-eye { display: none; }
