@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Footer.css';
 
 export default function Footer() {
@@ -196,16 +196,16 @@ export default function Footer() {
                 <div className="toast-group" id="toast-group" ref={toastGroupRef}>
                     <div className="toast toast-1">
                         <span>✉️</span>
-                        <a href="mailto:contact@moi.com">Email</a>
+                        <a href="mailto:contact@moi.com">jgerbaud@etudiant.univ-lr.fr</a>
                     </div>
                     <div className="toast toast-2">
                         <span>📱</span>
-                        <a href="tel:+336000000">06.00.00</a>
+                        <a href="tel:+336000000">05 49 78 77 69</a>
                     </div>
                     <div className="toast toast-3">
                         <span>📍</span>
                         <div className="address-text">
-                            123 Rue du Code 75000 Paris
+                            12 Av. Jacques Bujault, 79000 Niort
                         </div>
                     </div>
                 </div>

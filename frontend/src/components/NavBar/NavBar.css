@@ -3,20 +3,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0099cc;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100;
 }
 
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
 
 .navbar-brand:hover {
     color: #f0f0f0;
@@ -31,17 +24,30 @@
 }
 
 .nav-link {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    font-weight: 700; /* stronger weight for readability */
+    padding: 0.6rem 1.1rem; /* slightly larger hit area */
+    border-radius: 20px;
+    transition: all 0.18s ease;
+    background: rgba(0,0,0,0.18); /* darker translucent background to improve contrast */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.06);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.6);
 }
 
 .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    background-color: rgba(0,0,0,0.36); /* stronger on hover */
+    transform: translateY(-2px) scale(1.02);
+    color: #ffffff;
+}
+
+/* Active / current route styling */
+.nav-link.active, .nav-link[aria-current="page"] {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+    transform: none;
 }
 
 .navbar-toggle {
@@ -68,6 +74,7 @@
         width: 100%;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         flex-direction: column;
+        justify-content: space-between;
         padding: 1rem 0;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
@@ -82,6 +89,11 @@
 
     .nav-link {
         text-align: center;
-        padding: 1rem;
+        padding: 0.9rem 1rem;
+        background: rgba(0,0,0,0.14);
+    }
+
+    .nav-link:hover {
+        background: rgba(0,0,0,0.3);
     }
 }
