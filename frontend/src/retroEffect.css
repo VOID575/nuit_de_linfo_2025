@@ -1,0 +1,70 @@
+body {
+  background: linear-gradient(to top, #000000, #000000, #333333, #333333);
+  background-size: 100% 10px;
+
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+
+  /* restore normal document flow so position:sticky works */
+  display: block;
+  height: 150%;
+  /* remove flex layout which can interfere with sticky positioning */
+  /* flex-direction removed */
+
+  min-height: auto;
+  width: 100%;
+}
+
+@media screen{
+  body {
+    animation: scanlines infinite 1s linear ;
+  }
+} 
+@keyframes scanlines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 -10px;
+  }
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  pointer-events: none; /* don't block interactions */
+  z-index: 2147483647; /* very high to be above most stacking contexts */
+  background: repeating-linear-gradient(
+    to top,
+    rgba(255,255,255,0) 0px,
+    rgba(255,255,255,0) 6px,
+    rgba(255,255,255,0.06) 6px,
+    rgba(255,255,255,0.06) 8px
+  );
+  background-size: 100% 10px;
+  animation: scanlines infinite 1s linear;
+  mix-blend-mode: overlay; /* subtle blending */
+  pointer-events: none;
+}
+
+/* Ensure the retro overlay sits above the game canvas and its layers.
+   This forces game containers to a low stacking level while keeping layout unchanged. */
+.level1game-container,
+.level1game-canvas-wrapper,
+.level1game-canvas,
+.enemies-layer,
+#game-footer {
+  z-index: 0 !important;
+  /* avoid accidental stacking contexts from transforms */
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* Very high z-index for the overlay to guarantee it's on top */
+html::before {
+  z-index: 2147483647 !important;
+}
+
+/* Ensure the overlay sits above elements that create new stacking contexts via transforms/filters: */
+html, body { isolation: isolate; }
