@@ -1,9 +1,6 @@
-import {useEffect, useRef, useState, useCallback, useMemo} from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import { Button } from './ui/button';
-import { type Position, type Direction, type Size } from "../types/basicPhysic.ts";
-import { useControls } from "../hooks/useControls.ts";
-import {Vector3} from "three";
 
 const GRID_SIZE = 20;
 const CELL_SIZE = 1;
@@ -11,7 +8,8 @@ const INITIAL_SNAKE = [{ x: 10, y: 10 }];
 const INITIAL_DIRECTION = { x: 1, y: 0 };
 const GAME_SPEED = 150;
 
-
+type Position = { x: number; y: number };
+type Direction = { x: number; y: number };
 
 export default function App() {
     const mountRef = useRef<HTMLDivElement>(null);
@@ -21,17 +19,16 @@ export default function App() {
     const snakeMeshesRef = useRef<THREE.Mesh[]>([]);
     const foodMeshRef = useRef<THREE.Mesh | null>(null);
     const gridRef = useRef<THREE.GridHelper | null>(null);
+    const targetCameraPositionRef = useRef<THREE.Vector3 | null>(null);
+    const currentCameraPositionRef = useRef<THREE.Vector3 | null>(null);
 
     const [snake, setSnake] = useState<Position[]>(INITIAL_SNAKE);
     const [food, setFood] = useState<Position>({ x: 15, y: 15 });
     const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
+    const [nextDirection, setNextDirection] = useState<Direction>(INITIAL_DIRECTION);
     const [gameOver, setGameOver] = useState(false);
     const [score, setScore] = useState(0);
-    const [screenSize,setScreenSize] = useState<Size>({x:'600px', y:'600px'});
-    const [isOnFullScreen,setFullScreen] = useState<boolean>(false);
     const [isPlaying, setIsPlaying] = useState(false);
-
-    const nextDirection = useControls(direction, isPlaying);
 
     const generateFood = useCallback((currentSnake: Position[]) => {
         let newFood: Position;
@@ -49,43 +46,12 @@ export default function App() {
     const resetGame = () => {
         setSnake(INITIAL_SNAKE);
         setDirection(INITIAL_DIRECTION);
+        setNextDirection(INITIAL_DIRECTION);
         setFood({ x: 15, y: 15 });
         setScore(0);
         setGameOver(false);
         setIsPlaying(true);
     };
-
-    const onFullScreen = () => {
-        if (!isOnFullScreen) {
-            setScreenSize({width : '100vw',height : '100vh'})
-            setFullScreen(true);
-        } else {
-            setScreenSize({width : '600px',height : '600px'})
-            setFullScreen(false);
-        }
-
-        if (!mountRef.current || !rendererRef.current || !cameraRef.current) return;
-
-        const width = mountRef.current.clientWidth;
-        const height = mountRef.current.clientHeight;
-
-        rendererRef.current.setSize(width, height);
-
-        cameraRef.current.aspect = width / height;
-        cameraRef.current.updateProjectionMatrix();
-    };
-
-    useEffect(() => {
-            if (!mountRef.current || !rendererRef.current || !cameraRef.current) return;
-
-            const width = mountRef.current.clientWidth;
-            const height = mountRef.current.clientHeight;
-
-            rendererRef.current.setSize(width, height);
-
-            cameraRef.current.aspect = width / height;
-            cameraRef.current.updateProjectionMatrix();
-    }, [screenSize]);
 
     const checkCollision = (head: Position, body: Position[]) => {
         if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
@@ -106,13 +72,13 @@ export default function App() {
 
         // Camera
         const camera = new THREE.PerspectiveCamera(
-            100,
+            60,
             mountRef.current.clientWidth / mountRef.current.clientHeight,
             0.1,
             1000
         );
-        camera.position.set(GRID_SIZE * 1.5, GRID_SIZE * 2.5, GRID_SIZE * 1.5);
-        camera.lookAt(snake[0].x, 0, snake[0].y);
+        camera.position.set(GRID_SIZE * 0.8, GRID_SIZE * 1.2, GRID_SIZE * 0.8);
+        camera.lookAt(GRID_SIZE / 2, 0, GRID_SIZE / 2);
         cameraRef.current = camera;
 
         // Renderer
@@ -160,6 +126,14 @@ export default function App() {
         // Animation loop
         const animate = () => {
             requestAnimationFrame(animate);
+
+            // Smooth camera movement
+            if (targetCameraPositionRef.current && currentCameraPositionRef.current && cameraRef.current) {
+                currentCameraPositionRef.current.lerp(targetCameraPositionRef.current, 0.05);
+                cameraRef.current.position.copy(currentCameraPositionRef.current);
+                cameraRef.current.lookAt(GRID_SIZE / 2, 0, GRID_SIZE / 2);
+            }
+
             renderer.render(scene, camera);
         };
         animate();
@@ -183,29 +157,37 @@ export default function App() {
         };
     }, []);
 
-    const snakeHeadRef = useRef(INITIAL_SNAKE[0]);
-    const [currentLookPos, setCurrentLook] = useState<Vector3>(new Vector3());
+    // Update camera position based on direction
     useEffect(() => {
-        snakeHeadRef.current = snake[0];
-        if (cameraRef.current && snake.length > 0) {
-            const targetLookAt = new Vector3(snakeHeadRef.current.x, 0, snakeHeadRef.current.y);
-            currentLookPos.lerp(targetLookAt, 0.05);
-            cameraRef.current.lookAt(currentLookPos);
-            setCurrentLook(currentLookPos);
-        }
-    }, [snake]);
+        if (!cameraRef.current) return;
 
-    const snakeGeometry = useMemo(() => new THREE.BoxGeometry(CELL_SIZE * 0.9, CELL_SIZE * 0.9, CELL_SIZE * 0.9), []);
-    const snakeMaterial = useMemo(() => new THREE.MeshStandardMaterial({
-        color: 0x22c55e,
-        roughness: 0.5,
-        metalness: 0.3,
-    }), []);
-    const headMaterial = useMemo(() => new THREE.MeshStandardMaterial({
-        color: 0x4ade80,
-        roughness: 0.5,
-        metalness: 0.3,
-    }), []);
+        const distance = GRID_SIZE * 0.8;
+        const height = GRID_SIZE * 1.2;
+        let newPosition: THREE.Vector3;
+
+        // Calculate camera position based on direction
+        if (direction.x === 1 && direction.y === 0) { // Right
+            newPosition = new THREE.Vector3(GRID_SIZE / 2 - distance, height, GRID_SIZE / 2);
+        } else if (direction.x === -1 && direction.y === 0) { // Left
+            newPosition = new THREE.Vector3(GRID_SIZE / 2 + distance, height, GRID_SIZE / 2);
+        } else if (direction.x === 0 && direction.y === 1) { // Down
+            newPosition = new THREE.Vector3(GRID_SIZE / 2, height, GRID_SIZE / 2 - distance);
+        } else if (direction.x === 0 && direction.y === -1) { // Up
+            newPosition = new THREE.Vector3(GRID_SIZE / 2, height, GRID_SIZE / 2 + distance);
+        } else {
+            newPosition = new THREE.Vector3(GRID_SIZE * 0.8, GRID_SIZE * 1.2, GRID_SIZE * 0.8);
+        }
+
+        if (!targetCameraPositionRef.current) {
+            targetCameraPositionRef.current = newPosition.clone();
+        } else {
+            targetCameraPositionRef.current.copy(newPosition);
+        }
+
+        if (!currentCameraPositionRef.current) {
+            currentCameraPositionRef.current = cameraRef.current.position.clone();
+        }
+    }, [direction]);
 
     // Update snake and food meshes
     useEffect(() => {
@@ -213,7 +195,6 @@ export default function App() {
 
         const scene = sceneRef.current;
 
-        // Remove old snake meshes
         snakeMeshesRef.current.forEach((mesh) => {
             scene.remove(mesh);
             mesh.geometry.dispose();
@@ -221,9 +202,14 @@ export default function App() {
         });
         snakeMeshesRef.current = [];
 
-        // Create new snake meshes
         snake.forEach((segment, index) => {
-            const mesh = new THREE.Mesh(snakeGeometry, index === 0 ? headMaterial : snakeMaterial);
+            const geometry = new THREE.BoxGeometry(CELL_SIZE * 0.9, CELL_SIZE * 0.9, CELL_SIZE * 0.9);
+            const material = new THREE.MeshStandardMaterial({
+                color: index === 0 ? 0x4ade80 : 0x22c55e,
+                roughness: 0.5,
+                metalness: 0.3,
+            });
+            const mesh = new THREE.Mesh(geometry, material);
             mesh.position.set(segment.x, CELL_SIZE / 2, segment.y);
             mesh.castShadow = true;
             mesh.receiveShadow = true;
@@ -231,7 +217,6 @@ export default function App() {
             snakeMeshesRef.current.push(mesh);
         });
 
-        // Update food mesh
         if (foodMeshRef.current) {
             scene.remove(foodMeshRef.current);
             foodMeshRef.current.geometry.dispose();
@@ -252,6 +237,67 @@ export default function App() {
         scene.add(foodMesh);
         foodMeshRef.current = foodMesh;
     }, [snake, food]);
+
+    // --- C'EST ICI QUE LA MAGIE OPÈRE POUR LES CONTRÔLES ---
+    useEffect(() => {
+        const handleKeyPress = (e: KeyboardEvent) => {
+            if (!isPlaying || gameOver || !cameraRef.current) return;
+
+            // 1. On calcule où regarde la caméra (Vecteur du centre - Position Caméra)
+            const camX = cameraRef.current.position.x;
+            const camZ = cameraRef.current.position.z;
+            const centerX = GRID_SIZE / 2;
+            const centerZ = GRID_SIZE / 2;
+
+            // Vecteur "Avant" (Forward) normalisé
+            const forward = new THREE.Vector2(centerX - camX, centerZ - camZ).normalize();
+
+            // On "arrondit" le vecteur pour avoir une direction cardinale claire (Nord, Sud, Est, Ouest)
+            // Cela évite les vecteurs diagonaux bizarres pendant que la caméra bouge
+            if (Math.abs(forward.x) > Math.abs(forward.y)) {
+                forward.x = Math.sign(forward.x);
+                forward.y = 0;
+            } else {
+                forward.x = 0;
+                forward.y = Math.sign(forward.y);
+            }
+
+            // Vecteur "Droite" (Right) : c'est le vecteur Avant pivoté de 90 degrés
+            const right = new THREE.Vector2(-forward.y, forward.x);
+
+            let desiredDirection = { x: 0, y: 0 };
+
+            switch (e.key) {
+                case 'ArrowUp':
+                    // Haut = Aller dans le sens de la caméra
+                    desiredDirection = { x: forward.x, y: forward.y };
+                    break;
+                case 'ArrowDown':
+                    // Bas = Aller à l'opposé de la caméra
+                    desiredDirection = { x: -forward.x, y: -forward.y };
+                    break;
+                case 'ArrowLeft':
+                    // Gauche = Aller à gauche (opposé de droite)
+                    desiredDirection = { x: -right.x, y: -right.y };
+                    break;
+                case 'ArrowRight':
+                    // Droite = Aller à droite
+                    desiredDirection = { x: right.x, y: right.y };
+                    break;
+                default:
+                    return;
+            }
+
+            // Vérification classique : on ne peut pas faire demi-tour sur soi-même
+            // (Si la direction désirée est l'opposé exact de la direction actuelle)
+            if (desiredDirection.x !== -direction.x || desiredDirection.y !== -direction.y) {
+                setNextDirection(desiredDirection);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+        return () => window.removeEventListener('keydown', handleKeyPress);
+    }, [direction, isPlaying, gameOver]);
 
     // Game loop
     useEffect(() => {
@@ -295,35 +341,27 @@ export default function App() {
                 <div
                     ref={mountRef}
                     className="rounded-xl overflow-hidden shadow-2xl border-4 border-green-500/30"
-                    style={{ width: screenSize.width, height: screenSize.height  }}
+                    style={{ width: '600px', height: '600px' }}
                 />
 
                 <div className="flex flex-col gap-6 items-center">
                     <div className="text-center bg-black/30 p-6 rounded-xl backdrop-blur-sm border border-green-500/30">
+                        <h1 className="text-white mb-4">Snake 3D</h1>
                         <div className="text-white/90 text-2xl">
                             Score: <span className="font-mono text-green-400">{score}</span>
                         </div>
                     </div>
 
                     <div className="flex flex-col items-center gap-4">
-                        <div className="flex flex-row gap-4">
-                            {!isPlaying && !gameOver && (
-                                <Button
-                                    onClick={resetGame}
-                                    size="lg"
-                                    className="bg-green-600 hover:bg-green-700 text-lg p-8"
-                                >
-                                    Commencer
-                                </Button>
-                            )}
+                        {!isPlaying && !gameOver && (
                             <Button
-                                onClick={onFullScreen}
+                                onClick={resetGame}
                                 size="lg"
-                                className="bg-green-600 hover:bg-green-700 text-lg p-8"
+                                className="bg-green-600 hover:bg-green-700 text-lg px-8"
                             >
-                                Plein écran
+                                Commencer
                             </Button>
-                        </div>
+                        )}
 
                         {gameOver && (
                             <div className="text-center bg-black/30 p-6 rounded-xl backdrop-blur-sm border border-red-500/30">
@@ -341,12 +379,12 @@ export default function App() {
                         <div className="text-white/90 text-center bg-black/30 p-4 rounded-xl backdrop-blur-sm border border-green-500/20">
                             {isPlaying && (
                                 <>
-                                    <div className="mb-2">Utilisez les flèches pour diriger</div>
-                                    <div className="flex gap-2 justify-center items-center">
-                                        <div className="bg-green-600/50 px-3 py-1 rounded">↑</div>
-                                        <div className="bg-green-600/50 px-3 py-1 rounded">↓</div>
-                                        <div className="bg-green-600/50 px-3 py-1 rounded">←</div>
-                                        <div className="bg-green-600/50 px-3 py-1 rounded">→</div>
+                                    <div className="mb-2">Contrôles relatifs caméra</div>
+                                    <div className="flex flex-col gap-1 text-sm">
+                                        <div>↑ : Aller vers le haut de l'écran</div>
+                                        <div>↓ : Aller vers le bas de l'écran</div>
+                                        <div>← : Aller à gauche de l'écran</div>
+                                        <div>→ : Aller à droite de l'écran</div>
                                     </div>
                                 </>
                             )}
