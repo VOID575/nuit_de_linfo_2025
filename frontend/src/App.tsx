@@ -16,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explorer" element={<Explorer />} />
+            <Route path="/index.html" element={<Home />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
