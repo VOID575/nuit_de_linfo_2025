@@ -28,7 +28,12 @@ jobs:
       # Step 4: Build the React app
       - name: Build React App
         run: cd frontend && npm run build
-        
+
+      - name: Configure
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
       # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         run: cd frontend && npm run deploy
