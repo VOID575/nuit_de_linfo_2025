@@ -1,0 +1,53 @@
+.level1game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.level1game-canvas {
+  border: 6px solid #00313a;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.2);
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.level1game-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  color: white;
+  font-family: monospace;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.level1game-help { opacity: 0.85; font-size: 12px; }
+
+.level1game-endOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.level1game-button {
+  background: #ffdd57;
+  color: #001f2f;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: monospace;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+.level1game-gameover {
+  color: #fff;
+  text-align: center;
+  font-family: monospace;
+}
+.level1game-gameover-title { font-size: 28px; margin-bottom: 8px; }
+.level1game-restart { font-size: 14px; opacity: 0.9; }

@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
                         </a>
                     </li>
                     <li>
-                        <NavLink to="/explorer" className="nav-link">
+                        <NavLink to="/Level1Intro" className="nav-link">
                             Explorer
                         </NavLink>
                     </li>
