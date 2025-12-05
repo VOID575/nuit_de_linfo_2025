@@ -1,4 +1,5 @@
-/* --- GLOBAL --- */
+/* --- SUPPRESSION DES STYLES GLOBAUX PROBLÉMATIQUES --- */
+/* 
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -9,6 +10,7 @@ body {
     justify-content: center;
     user-select: none;
 }
+*/
 
 /* --- FOOTER SCÈNE --- */
 #game-footer {
@@ -20,11 +22,12 @@ body {
     justify-content: flex-end;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Important : garde les éléments dans le footer */
+    overflow: hidden;
     border-top: 8px solid #e74c3c;
     box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    margin-top: auto; /* Pousse le footer vers le bas */
 }
 
 /* --- UI --- */
@@ -50,6 +53,7 @@ body {
     letter-spacing: 2px;
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.1s;
+    user-select: none;
 }
 
 .sub-status {
@@ -57,6 +61,7 @@ body {
     font-size: 1rem;
     margin-top: 5px;
     font-weight: bold;
+    user-select: none;
 }
 
 .progress-container {
@@ -85,6 +90,7 @@ body {
     height: 220px;
     margin-bottom: 0;
     transition: transform 0.1s;
+    user-select: none;
 }
 
 .toaster-body {
@@ -94,7 +100,6 @@ body {
     width: 260px;
     height: 180px;
     background: #bdc3c7;
-    /* GRIS DÉPART */
     border-radius: 40px 40px 10px 10px;
     z-index: 150;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -285,7 +290,7 @@ body {
     transition: 0.2s;
 }
 
-/* ANIMATION SORTIE - CORRIGÉE POUR RESTER DANS LE FOOTER */
+/* ANIMATION SORTIE */
 .success .toast-group {
     pointer-events: all;
 }

@@ -6,9 +6,6 @@ const NavBar: React.FC = () => {
     return (
         <nav className="navbar">
             <div className="nav-container">
-                <NavLink to="/" className="navbar-brand">
-                    Logo
-                </NavLink>
                 <ul className="navbar-nav">
                     <li>
                         <NavLink to="/" className="nav-link">
@@ -16,14 +13,14 @@ const NavBar: React.FC = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <a href="/oldpage/index.html" className="nav-link">
-                            NIRD
+                        <a href="/nird" className="nav-link">
+                            Le NIRD
                         </a>
                     </li>
                     <li>
                         <NavLink to="/Level1Intro" className="nav-link">
                             Explorer
-                        </NavLink>
+                        </a>
                     </li>
                 </ul>
             </div>
