@@ -15,18 +15,13 @@ const NavBar: React.FC = () => {
                         </a>
                     </li>
                     <li>
-                        <a href="/about" className="nav-link">
-                            À propos
+                        <a href="/nird" className="nav-link">
+                            Le NIRD
                         </a>
                     </li>
                     <li>
-                        <a href="/services" className="nav-link">
-                            Services
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/contact" className="nav-link">
-                            Contact
+                        <a href="/explorer" className="nav-link">
+                            Explorer
                         </a>
                     </li>
                 </ul>
