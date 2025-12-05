@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
                         </a>
                     </li>
                     <li>
-                        <a href="/explorer" className="nav-link">
+                        <NavLink to="/Level1Intro" className="nav-link">
                             Explorer
                         </a>
                     </li>
