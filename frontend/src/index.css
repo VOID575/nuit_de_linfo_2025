@@ -946,6 +946,18 @@
     --sidebar-accent-foreground: oklch(.205 0 0);
     --sidebar-border: oklch(.922 0 0);
     --sidebar-ring: oklch(.708 0 0);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .dark {
@@ -985,8 +997,20 @@
     --sidebar-ring: oklch(.439 0 0);
 }
 
+
 html {
     font-size: var(--font-size);
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  height: 100vh;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
 }
 
 @property --tw-border-style {
@@ -1135,3 +1159,17 @@ html {
     inherits: false;
     initial-value: solid;
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+

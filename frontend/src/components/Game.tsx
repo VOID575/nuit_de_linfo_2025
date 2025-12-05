@@ -11,7 +11,7 @@ const GAME_SPEED = 150;
 type Position = { x: number; y: number };
 type Direction = { x: number; y: number };
 
-export default function App() {
+export default function Game() {
     const mountRef = useRef<HTMLDivElement>(null);
     const sceneRef = useRef<THREE.Scene | null>(null);
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -336,12 +336,13 @@ export default function App() {
     }, [isPlaying, gameOver, nextDirection, food, generateFood]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900 flex items-center justify-center p-8">
+        <div className="min-h-screen min-w-screen bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900 flex items-center justify-center p-8">
             <div className="flex flex-col lg:flex-row gap-8 items-center">
                 <div
                     ref={mountRef}
                     className="rounded-xl overflow-hidden shadow-2xl border-4 border-green-500/30"
-                    style={{ width: '600px', height: '600px' }}
+                    // Change 600px en 800px ou 900px
+                    style={{ width: '1000px', height: '1000px' }}
                 />
 
                 <div className="flex flex-col gap-6 items-center">

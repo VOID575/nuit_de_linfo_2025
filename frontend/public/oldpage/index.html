@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>NIRD - Numérique Inclusif Responsable Durable</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- jQuery 1.12.4 -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- FontAwesome 4.7 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+            function checkLayout() {
+                var width = $(window).width();
+                var $body = $('body');
+
+                $body.removeClass('mobile-view tablet-view desktop-view');
+
+                if (width < 768) {
+                    $body.addClass('mobile-view');
+                    if (!$('#nav').hasClass('open')) { $('#nav').hide(); }
+                } else if (width < 992) {
+                    $body.addClass('tablet-view');
+                    $('#nav').show();
+                    $('#burger-btn').hide();
+                    $('#mobile-home-btn').hide(); // Cacher le bouton Home mobile
+                } else {
+                    $body.addClass('desktop-view');
+                    $('#nav').show();
+                    $('#burger-btn').hide();
+                    $('#mobile-home-btn').hide(); // Cacher le bouton Home mobile
+                }
+            }
+
+            checkLayout();
+            $(window).resize(checkLayout);
+
+            $('#burger-btn').click(function(e) {
+                e.preventDefault();
+                $('#nav').stop(true, true).slideToggle();
+                $('#nav').toggleClass('open');
+            });
+
+            $('.tab-link').click(function(e) {
+                e.preventDefault();
+                $('.tab-link').removeClass('active');
+                $(this).addClass('active');
+                var targetId = $(this).attr('href');
+                $('.tab-content').hide();
+                $(targetId).show();
+                $(targetId).css('opacity', 0).animate({ opacity: 1 }, 300);
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div id="header">
+        <div class="container clearfix">
+            <div id="logo">NIRD<span>.</span></div>
+            
+            <!-- Bouton Burger (flottant à droite) -->
+            <div id="burger-btn"><i class="fa fa-bars"></i></div>
+            
+            <!-- NOUVEAU : Bouton Accueil visible uniquement sur mobile (flottant à droite, donc à gauche du burger) -->
+            <a href="#hero" id="mobile-home-btn"><i class="fa fa-home"></i></a>
+
+            <ul id="nav" class="clearfix">
+                <li><a href="../index.html">Retour à l'accueil</a></li>
+                <li><a href="#hero">Haut de la page</a></li>
+                <li><a href="#tabs-section">Les Piliers</a></li>
+                <li><a href="#media-section">Média</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="hero" class="text-center">
+        <div class="container">
+            <h1>Numérique Inclusif, Responsable & Durable</h1>
+            <p>Construisons ensemble un avenir technologique qui n'oublie personne et préserve notre planète. Une approche éthique pour les défis de demain.</p>
+            <a href="#tabs-section" class="btn">Découvrir le concept</a>
+        </div>
+    </div>
+
+    <div id="tabs-section">
+        <div class="container">
+            <h2 class="section-title text-center">Les 3 Piliers du NIRD</h2>
+            <ul class="tab-nav clearfix">
+                <li><a href="#tab-inclusif" class="tab-link active">Inclusif</a></li>
+                <li><a href="#tab-responsable" class="tab-link">Responsable</a></li>
+                <li><a href="#tab-durable" class="tab-link">Durable</a></li>
+            </ul>
+
+            <div id="tab-inclusif" class="tab-content active">
+                <div class="tab-cols clearfix">
+                    <div class="col-half text-center">
+                        <i class="fa fa-users tab-icon"></i>
+                        <h3>Accessibilité pour tous</h3>
+                    </div>
+                    <div class="col-half col-right">
+                        <p>Le numérique inclusif vise à rendre les technologies accessibles à tous, indépendamment du handicap, de l'âge, ou de la situation géographique. Il s'agit de lutter contre l'illectronisme et de garantir que les services publics et privés soient utilisables par chacun.</p>
+                        <br>
+                        <p><strong>Enjeux :</strong> Accessibilité web (RGAA), formation des seniors, couverture réseau en zone blanche.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-responsable" class="tab-content">
+                <div class="tab-cols clearfix">
+                    <div class="col-half text-center">
+                        <i class="fa fa-shield tab-icon"></i>
+                        <h3>Éthique et Données</h3>
+                    </div>
+                    <div class="col-half col-right">
+                        <p>Le numérique responsable s'attache à l'impact social et éthique de la technologie. Il prône une gestion transparente des données personnelles (RGPD), la lutte contre le cyber-harcèlement et la promotion d'algorithmes non biaisés.</p>
+                        <br>
+                        <p><strong>Enjeux :</strong> Souveraineté numérique, protection de la vie privée, modération de contenu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-durable" class="tab-content">
+                <div class="tab-cols clearfix">
+                    <div class="col-half text-center">
+                        <i class="fa fa-leaf tab-icon"></i>
+                        <h3>Écologie Numérique</h3>
+                    </div>
+                    <div class="col-half col-right">
+                        <p>Le numérique durable vise à réduire l'empreinte environnementale du secteur IT. De la fabrication des terminaux à la consommation énergétique des data centers, chaque étape doit être optimisée pour réduire les émissions de carbone.</p>
+                        <br>
+                        <p><strong>Enjeux :</strong> Réparabilité des appareils, éco-conception web, Green IT.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRID SECTION -->
+    <div style="background-color: #ffffff; padding: 60px 0; border-top: 1px solid #eee;">
+        <div class="container">
+            <div class="clearfix">
+                <div class="col-4">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-wheelchair fa-3x" style="color: #27ae60;"></i>
+                        <h3>Accessibilité</h3>
+                        <p>Concevoir des interfaces simples et navigables pour les personnes en situation de handicap.</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-server fa-3x" style="color: #27ae60;"></i>
+                        <h3>Sobriété</h3>
+                        <p>Minimiser le poids des données pour réduire la consommation énergétique des serveurs.</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-box text-center">
+                        <i class="fa fa-handshake-o fa-3x" style="color: #27ae60;"></i>
+                        <h3>Solidarité</h3>
+                        <p>Favoriser l'entraide et le lien social à travers les outils numériques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEDIA SECTION -->
+    <div id="media-section">
+        <div class="container text-center">
+            <h2 class="section-title">Comprendre l'Impact</h2>
+            <p style="margin-bottom: 30px;">Une vidéo explicative sur les enjeux du numérique durable.</p>
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/aTfIDgMWbzk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
