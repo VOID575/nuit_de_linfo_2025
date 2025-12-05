@@ -1,147 +1,172 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+
+'use client';
 
 export default function Level2() {
     const [showGame, setShowGame] = useState(false);
-    const [progress, setProgress] = useState(27); // pour coller à ta maquette
-    const [developers, setDevelopers] = useState(3);
-    const [word, setWord] = useState("pipeline");
-    const [userInput, setUserInput] = useState("");
-    const [message, setMessage] = useState("");
+    const [progress, setProgress] = useState(0);
+    const [developers, setDevelopers] = useState(0);
+    const [word, setWord] = useState('');
+    const [userInput, setUserInput] = useState('');
+    const [message, setMessage] = useState('');
+    const [gameFinished, setGameFinished] = useState(false);
 
-    const words = ["pipeline", "opensource", "logiciel", "securite", "transparence"];
+    const words = ['opensource', 'développeur', 'logiciel', 'sécurité', 'code', 'transparence', 'collaboration', 'communauté', 'innovation', 'partage', 'contribution', 'liberté', 'éthique', 'audit', 'licence', 'modularité', 'interopérabilité', 'accessibilité', 'soutenabilité', 'évolution', 'documentation', 'testabilité', 'maintenabilité', 'adaptabilité', 'performance', 'scalabilité', 'fiabilité', 'flexibilité', 'extensibilité', 'intégration', 'automatisation', 'déploiement'];
 
-    // -- DEVELOPPEURS = +1%/sec chacun --
     useEffect(() => {
-        if (!showGame) return;
+        if (showGame && !gameFinished) {
+            pickRandomWord();
+        }
+    }, [showGame, gameFinished]);
 
-        const interval = setInterval(() => {
-            setProgress((p) => Math.min(p + developers * 1, 100)); // +1%/sec/dev
-        }, 1000);
+    useEffect(() => {
+        if (developers > 0 && !gameFinished) {
+            const interval = setInterval(() => {
+                setProgress(prev => {
+                    const newProgress = Math.min(prev + developers * 1, 100);
+                    if (newProgress >= 100) setGameFinished(true);
+                    return newProgress;
+                });
+            }, 5000);
+            return () => clearInterval(interval);
+        }
+    }, [developers, gameFinished]);
 
-        return () => clearInterval(interval);
-    }, [developers, showGame]);
-
-    // -- CHOISIT UN NOUVEAU MOT --
-    const refreshWord = () => {
-        const newWord = words[Math.floor(Math.random() * words.length)];
-        setWord(newWord);
+    const pickRandomWord = () => {
+        if (!words || words.length === 0) return setWord('');
+        const randomWord = words[Math.floor(Math.random() * words.length)];
+        setWord(randomWord);
     };
 
     const buyDeveloper = () => {
-        if (progress >= 1) {
-            setProgress(progress - 1);
-            setDevelopers(developers + 1);
+        if (progress >= 1 && !gameFinished) {
+            setProgress(prev => Math.max(prev - 1, 0));
+            setDevelopers(prev => prev + 1);
         }
     };
 
-    const handleSubmitWord = () => {
-        if (userInput.toLowerCase() === word.toLowerCase()) {
-            setProgress((p) => Math.min(p + 1, 100)); // mot = +1%
-            setMessage("✓ Correct !");
-            setUserInput("");
-            refreshWord();
-        } else {
-            setMessage("✗ Incorrect");
-        }
+    const calculateGain = () => {
+        return 1;
+    };
 
-        setTimeout(() => setMessage(""), 2000);
+    const handleSubmitWord = () => {
+        if (!word || gameFinished) return;
+        if (userInput.trim().toLowerCase() === word.toLowerCase()) {
+            const gain = calculateGain();
+            setProgress(prev => {
+                const newProgress = Math.min(prev + gain, 100);
+                if (newProgress >= 100) setGameFinished(true);
+                return newProgress;
+            });
+            setMessage('✓ Correct!');
+            setUserInput('');
+            pickRandomWord();
+        } else {
+            setMessage('✗ Incorrect, réessayez!');
+        }
+        setTimeout(() => setMessage(''), 2000);
     };
 
     if (!showGame) {
         return (
-            <div className="min-h-screen bg-[#0E2A1E] text-white flex flex-col items-center justify-center p-4">
-                <div className="max-w-xl text-center">
-                    <h1 className="text-4xl font-bold mb-8">Niveau 2 : Open Source</h1>
-
-                    <div className="bg-white/10 p-6 rounded-xl mb-8">
-                        <p className="leading-relaxed">
-                            Vous êtes un développeur qui vise l’open-source. Les utilisateurs peuvent vérifier votre code afin de s’assurer qu’aucun spyware n’est présent.
-                        </p>
-                        <p className="leading-relaxed mt-4">
-                            Développez, progressez, et engagez d’autres développeurs pour avancer plus vite.
+            <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 flex flex-col items-center justify-center p-4">
+                <div className="max-w-2xl text-white text-center">
+                    <h1 className="text-4xl font-bold mb-8">Niveau 2: Open Source</h1>
+                    <div className="bg-white/10 backdrop-blur p-8 rounded-lg mb-8">
+                        <p className="text-lg leading-relaxed">
+                            Vous êtes un développeur qui a pour but de développer en open source...
                         </p>
                     </div>
-
                     <button
                         onClick={() => setShowGame(true)}
-                        className="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-lg text-xl font-bold"
+                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg text-xl"
                     >
-                        Commencer
+                        Commencer le jeu
                     </button>
                 </div>
             </div>
         );
     }
 
-    return (
-        <div className="min-h-screen bg-[#0E2A1E] text-white p-6">
-            <div className="max-w-xl mx-auto">
-
-                {/* Progress bar */}
-                <div className="mb-6">
-                    <div className="h-2 bg-green-900 rounded-full w-full">
-                        <div
-                            className="h-2 bg-green-400 rounded-full transition-all"
-                            style={{ width: `${progress}%` }}
-                        />
-                    </div>
-                    <p className="text-center mt-1">{Math.floor(progress)}%</p>
-                </div>
-
-                {/* Developer card (comme ta maquette) */}
-                <p className="mb-3 text-center text-sm">
-                    Payez 1% de progression pour engager un développeur
+    if (gameFinished) {
+        return (
+            <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 flex flex-col items-center justify-center p-8 text-white">
+                <h1 className="text-4xl font-bold mb-6 text-center">Bravo, vous avez fini le développement de votre logiciel !</h1>
+                <p className="text-lg leading-relaxed mb-4">
+                    Grâce à l’aide communautaire que les utilisateurs vous ont apportés, des milliers d’entreprises auront accès à des logiciels open-sources.
                 </p>
+                <p className="text-lg leading-relaxed mb-4">
+                    Cela leur permettra de rester indépendant technologiquement.
+                </p>
+                <p className="text-lg leading-relaxed">
+                    Par conséquent, ces entreprises n’auront pas à changer de logiciel ce qui n’occasionnera pas des coûts économique et écologique.
+                </p>
+            </div>
+        );
+    }
 
-                <div className="flex justify-center">
-                    <div className="flex bg-green-900 rounded-xl overflow-hidden text-center shadow-lg">
+    return (
+        <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 p-8">
+            <div className="max-w-2xl mx-auto">
+                <h1 className="text-3xl font-bold text-white mb-6">Niveau 2: Open Source</h1>
 
-                        <div className="bg-green-800 px-4 py-4 font-bold text-sm">
-                            Nombre de développeur<br />actuel
-                        </div>
-
-                        <div className="bg-green-700 px-6 flex items-center justify-center text-3xl font-bold">
-                            {developers}
-                        </div>
-
-                        <button
-                            onClick={buyDeveloper}
-                            disabled={progress < 1}
-                            className="bg-green-600 hover:bg-green-500 disabled:bg-gray-600 px-5 text-3xl font-bold"
+                {/* Progress Bar */}
+                <div className="mb-6">
+                    <p className="text-white text-lg mb-2">Engagez un développeur pour 1%.</p>
+                    <div className="w-full bg-gray-300 rounded-full h-6">
+                        <div
+                            className="bg-green-500 h-6 rounded-full transition-all flex items-center justify-center text-white font-bold text-sm"
+                            style={{ width: `${Math.min(progress, 100)}%` }}
                         >
-                            +
-                        </button>
+                            {Math.floor(progress)}%
+                        </div>
                     </div>
                 </div>
 
-                {/* Word typing section */}
-                <div className="mt-10 text-center">
-                    <p className="text-sm">Écrivez le mot ci-dessous pour gagner +1%</p>
+                {/* Buy Developer */}
+                <div className="mb-6 flex items-center gap-2">
+                    <button
+                        onClick={buyDeveloper}
+                        disabled={progress < 1}
+                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Développeurs: {developers}
+                    </button>
+                    <button
+                        onClick={buyDeveloper}
+                        disabled={progress < 1}
+                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white font-bold py-2 px-4 rounded text-lg"
+                    >
+                        +
+                    </button>
+                </div>
 
-                    <p className="text-xl text-green-300 underline mt-2">{word}</p>
-
-                    <div className="flex justify-center gap-2 mt-5 mb-4">
-                        {word.split("").map((_, i) => (
-                            <div key={i} className="w-6 h-6 border-b-2 border-white"></div>
+                {/* Word Game */}
+                <div className="bg-white/10 backdrop-blur p-6 rounded-lg">
+                    <p className="text-white text-lg mb-4">Écrivez le mot ci-dessous pour gagner 1%</p>
+                    <p className="text-3xl font-bold text-yellow-300 text-center mb-6">{word}</p>
+                    <div className="flex justify-center gap-2 mb-6">
+                        {word.split('').map((_, idx) => (
+                            <div key={idx} className="w-8 h-8 border-b-2 border-white"></div>
                         ))}
                     </div>
-
-                    <div className="flex gap-2 justify-center">
+                    <div className="flex gap-2">
                         <input
+                            type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && handleSubmitWord()}
-                            className="px-3 py-2 rounded text-black"
+                            onKeyPress={(e) => e.key === 'Enter' && handleSubmitWord()}
+                            placeholder="Votre réponse"
+                            className="flex-1 px-4 py-2 rounded"
                         />
                         <button
                             onClick={handleSubmitWord}
-                            className="bg-green-500 hover:bg-green-600 px-6 py-2 rounded font-bold"
+                            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded"
                         >
                             Valider
                         </button>
                     </div>
-
-                    {message && <p className="mt-4 text-lg">{message}</p>}
+                    {message && <p className="text-white text-center mt-4 text-lg">{message}</p>}
                 </div>
             </div>
         </div>
