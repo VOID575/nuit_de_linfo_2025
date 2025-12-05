@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Footer from './components/Footer/Footer'
 import Explorer from './pages/Explorer'
 import NotFound from './pages/NotFound'
+import Level2 from "./pages/level2"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explorer" element={<Explorer />} />
+            <Route path="/level2" element={<Level2 />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
