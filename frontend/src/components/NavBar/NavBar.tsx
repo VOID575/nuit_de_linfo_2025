@@ -13,14 +13,14 @@ const NavBar: React.FC = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <a href="/oldpage/index.html" className="nav-link">
-                            NIRD
+                        <a href="/nird" className="nav-link">
+                            Le NIRD
                         </a>
                     </li>
                     <li>
-                        <NavLink to="/explorer" className="nav-link">
+                        <a href="/explorer" className="nav-link">
                             Explorer
-                        </NavLink>
+                        </a>
                     </li>
                 </ul>
             </div>
