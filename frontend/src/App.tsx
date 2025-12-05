@@ -6,6 +6,9 @@ import Home from './pages/Home'
 import Footer from './components/Footer/Footer'
 import Explorer from './pages/Explorer'
 import NotFound from './pages/NotFound'
+import Level1Intro from './pages/Level1Intro/Level1Intro'
+import Level1Game from './pages/Level1Game/Level1Game'
+import Level1End from './pages/Level1End/Level1End'
 
 function App() {
   return (
@@ -17,10 +20,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/explorer" element={<Explorer />} />
             <Route path="/index.html" element={<Home />} />
+            <Route path="/level1intro" element={<Level1Intro />} />
+            <Route path="/level1game" element={<Level1Game />} />
+            <Route path="/level1end" element={<Level1End />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   )
