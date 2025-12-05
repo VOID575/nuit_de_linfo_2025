@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main  # Deploy only when pushing to the main branch
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -29,13 +31,9 @@ jobs:
       - name: Build React App
         run: cd frontend && npm run build
 
-      - name: Configure
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
       # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        run: cd frontend && npm run deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend/build
