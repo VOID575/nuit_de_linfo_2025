@@ -5,6 +5,7 @@ import path from 'path';
 
 export default defineConfig({
     plugins: [react()],
+    base: '/nuit_de_linfo_2025/',
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         alias: {
