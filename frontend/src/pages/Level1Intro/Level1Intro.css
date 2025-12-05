@@ -1,126 +1,183 @@
-/* Make the component fill the entire viewport so it behaves as a full page */
+/* Container for the whole page - centers the "window" */
 .level1-intro {
-  position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
-  display: flex;
-  flex-direction: column;
-  background: #00c2d9; /* cyan background */
-  font-family: 'Arial', Helvetica, sans-serif;
-  color: #001010; /* darker base text color for the whole page */
-  overflow: auto; /* allow internal scrolling if content taller than viewport */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Header / top nav strip - full width */
-.li-header {
-  background: #018fa8;
-  padding: 8px 0;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.25) inset;
   width: 100%;
-  flex: 0 0 auto;
-}
-
-.li-nav {
-  width: 100%;
+  min-height: 100%;
   display: flex;
   justify-content: center;
-  gap: 3.5rem;
   align-items: center;
-  padding: 6px 24px;
+  background-color: #1a0000; /* Very dark red/black background for the page */
+  padding: 2rem;
   box-sizing: border-box;
+  font-family: 'Arial', Helvetica, sans-serif;
 }
 
-.li-nav-item {
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-}
-
-/* Main content area takes remaining space */
+/* The "WannaCry" Window */
 .li-main {
+  background-color: #a20000; /* Classic Red Ransomware color */
+  max-width: 1000px;
   width: 100%;
-  box-sizing: border-box;
-  margin: 20px 0 60px;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
   display: flex;
   gap: 24px;
-  align-items: flex-start;
-  padding: 0 24px;
-  flex: 1 1 auto;
+  padding: 24px;
+  color: #ffffff;
+  position: relative;
 }
 
 /* Left column */
 .li-left {
-  width: 220px;
+  width: 240px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  align-items: center;
-  flex: 0 0 220px;
+  gap: 20px;
+  flex-shrink: 0;
 }
 
 .li-oval {
-  width: 140px;
-  height: 60px;
-  background: #e6e6e6;
-  color: #000;
+  width: 100%;
+  padding: 10px;
+  background: #ffffff;
+  color: #a20000;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  border: 3px solid #333;
-  font-weight: 700;
-  box-shadow: 0 3px 0 rgba(0,0,0,0.25);
+  border-radius: 8px;
+  border: 2px solid #800000;
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
 .li-box {
-  width: 190px;
-  background: #00b9d0;
-  border-radius: 12px;
-  padding: 12px;
-  border: 3px solid #002b36;
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.15);
-  color: #fff;
+  background: #ffcccc;
+  border-radius: 4px;
+  padding: 15px;
+  border: 2px solid #800000;
+  color: #800000;
 }
 
-.li-box h4 { margin: 0 0 8px 0; font-size: 13px; }
-.li-date { font-weight: 700; font-size: 12px; margin: 0 0 6px 0; }
-.li-small { font-size: 11px; opacity: 0.95; margin: 0; }
-.li-timer { margin-top: 6px; font-weight: 700; font-size: 14px; }
+.li-box h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.li-date {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  color: #000;
+}
+
+.li-small {
+  font-size: 12px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.li-timer {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #000;
+  font-family: monospace;
+}
 
 /* Center column */
 .li-center {
-  flex: 1 1 auto;
-  min-width: 0; /* allow flex children to shrink */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .li-title {
   text-align: center;
-  color: #00787f; /* slightly darker cyan for the title */
-  font-weight: 800;
-  font-size: 30px;
-  margin: 6px 0 12px;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000;
+  background-color: #800000;
+  padding: 10px;
+  border: 2px solid white;
 }
 
 .li-panel {
-  background: #fff;
-  border-radius: 6px;
-  padding: 18px;
-  border: 2px solid #222;
-  box-shadow: 0 6px 0 rgba(0,0,0,0.08);
-  color: #000000; /* ensure black text inside white panel for maximum contrast */
-  line-height: 1.45;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 20px;
+  border: 2px solid #800000;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-y: auto;
+  max-height: 600px;
 }
 
-.lead { font-weight: 700; margin-bottom: 12px; }
-.li-panel p { margin: 10px 0; font-size: 14px; color: #000000; }
+.li-panel p {
+  margin-bottom: 15px;
+}
 
-/* Payment area inside panel */
-.li-payment { display: flex; gap: 12px; align-items: center; justify-content: space-between; margin-top: 16px; }
-.li-payment-left { flex: 1 1 auto; }
-.small-muted { font-size: 12px; color: #333333; margin: 0 0 6px 0; } /* slightly darker muted text */
-.btc-address { font-weight: 700; background: #f1f1f1; display: inline-block; padding: 8px 10px; border-radius: 4px; border: 1px solid #ccc; }
-.li-payment-right { width: 200px; display: flex; align-items: center; justify-content: center; }
-.li-btn { background: #fff; border: 2px solid #111; padding: 10px 18px; border-radius: 24px; cursor: pointer; font-weight: 700; color : black }
+.lead {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.li-payment {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 20px;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+  gap: 20px;
+}
+
+.li-payment-left {
+  flex: 1;
+}
+
+.small-muted {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.btc-address {
+  background: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-family: monospace;
+  font-weight: bold;
+  word-break: break-all;
+}
+
+.li-payment-right {
+  flex-shrink: 0;
+}
+
+.li-payment-right .nav-link {
+  display: inline-block;
+  background-color: #a20000;
+  color: white;
+  padding: 15px 40px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 4px;
+  border: 2px solid #800000;
+  transition: all 0.2s;
+}
+
+.li-payment-right .nav-link:hover {
+  background-color: #ff0000;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
 /* Responsive adjustments */
 @media (max-width: 880px) {

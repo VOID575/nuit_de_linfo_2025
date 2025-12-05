@@ -1,10 +1,11 @@
 import React from 'react';
+import './Explorer.css';
 
 const Explorer: React.FC = () => {
   return (
-    <div>
+    <div className="explorer-container">
       <h1>Explorer</h1>
-      <p>Explorez notre contenu et découvrez de nouvelles fonctionnalités.</p>
+      <p className="explorer-text">Explorez notre contenu et découvrez de nouvelles fonctionnalités.</p>
       <div style={{ marginTop: '2rem' }}>
         <h2>Fonctionnalités disponibles :</h2>
         <ul>
