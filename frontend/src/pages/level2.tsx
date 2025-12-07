@@ -107,7 +107,7 @@ export default function Level2() {
                     <p className="level2-text">
                         Par conséquent, ces entreprises n’auront pas à changer de logiciel ce qui n’occasionnera pas des coûts économique et écologique.
                     </p>
-                    <NavLink to="/level3intro" className="level2-button" style={{display: 'inline-block', marginTop: '1rem', textDecoration: 'none'}}>
+                    <NavLink to="/level3" className="level2-button" style={{display: 'inline-block', marginTop: '1rem', textDecoration: 'none'}}>
                         Niveau Suivant
                     </NavLink>
                 </div>

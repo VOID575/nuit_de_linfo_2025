@@ -3,9 +3,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
     plugins: [react()],
-    base: '/nuit_de_linfo_2025/',
+    base: mode === 'production' ? '/nuit_de_linfo_2025/' : '/',
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         alias: {
@@ -58,4 +58,4 @@ export default defineConfig({
         port: 3000,
         open: true,
     },
-});
+}));
